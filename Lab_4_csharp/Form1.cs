@@ -12,39 +12,62 @@ namespace Lab_4_csharp
 {
     public partial class Form1 : Form
     {
+        private int[,] matrix;
+        private int rowCount;
+        private int columnCount;
         public Form1()
         {
             InitializeComponent();
         }
-
         private void calculateButton_Click(object sender, EventArgs e)
         {
+            ReadUserInputs();
+            FillMatrixWithRandomNumberAndShow();
+            ShowMatrix();
+            Number_of_lines_with_zeros.Text = "Кількість рядків з нулями: " + CountNumberOfRowsWithZeros();
+            ColumnWithMostDuplicates.Text = "Номер стовпця з найбільшою кількістю однакових елементів: " + 
+                GetIndexOfFirstColumnWithMostDuplicates();
+        }
+        private void ReadUserInputs()
+        {
+            rowCount = Convert.ToInt32(rowCountTextBox.Text);
+            columnCount = Convert.ToInt32(columnCountTextBox.Text);
+            matrix = new int[rowCount, columnCount];
 
+        }
+        private void FillMatrixWithRandomNumberAndShow()
+        {
             Random rnd = new Random();
-            int rowCount = Convert.ToInt32(rowCountTextBox.Text);
-            int columnCount = Convert.ToInt32(columnCountTextBox.Text);
-            int[,] matrix = new int[rowCount, columnCount];
-            dataGridView1.ColumnCount= columnCount;
-            dataGridView1.RowCount = rowCount;
-            for (int i = 0; i < rowCount; i++)
+            for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
             {
-                for (int j = 0; j < columnCount; j++)
+                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
                 {
-                  
-                    matrix[i,j] = rnd.Next(-10,10);
-
-                      dataGridView1.Rows[i].Cells[j].Value = matrix[i, j];
+                    matrix[rowIndex, columnIndex] = rnd.Next(-10, 10);
                 }
             }
+        }
+        private void ShowMatrix()
+        {
+            dataGridView1.ColumnCount = matrix.GetLength(1);
+            dataGridView1.RowCount = matrix.GetLength(0);
+            for (int rowIndex = 0; rowIndex < dataGridView1.RowCount; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < dataGridView1.ColumnCount; columnIndex++)
+                {
 
-            // Кількість рядків, що містять хоча б один нульовий елемент
+                    dataGridView1.Rows[rowIndex].Cells[columnIndex].Value = matrix[rowIndex, columnIndex];
+                }
+            }
+        }
+        private int CountNumberOfRowsWithZeros()
+        {
             int rowsWithZeroes = 0;
-            for (int i = 0; i < rowCount; i++)
+            for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
             {
                 bool rowHasZero = false;
-                for (int j = 0; j < columnCount; j++)
+                for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
                 {
-                    if (matrix[i, j] == 0)
+                    if (matrix[rowIndex, columnIndex] == 0)
                     {
                         rowHasZero = true;
                         break;
@@ -55,38 +78,38 @@ namespace Lab_4_csharp
                     rowsWithZeroes++;
                 }
             }
-            Number_of_lines_with_zeros.Text = "Кількість рядків з нулями: " + rowsWithZeroes;
-
-            // Номер стовпця з найбільшою кількістю однакових елементів
+            return rowsWithZeroes;
+        }
+        private int GetIndexOfFirstColumnWithMostDuplicates()
+        {
             int maxCount = 0;
             int maxCountColumn = -1;
-            for (int j = 0; j < columnCount; j++)
+            for (int columnIndex = 0; columnIndex < columnCount; columnIndex++)
             {
-                int[] columnElements = new int[rowCount];
-                for (int i = 0; i < rowCount; i++)
+                for (int rowIndex = 0; rowIndex < matrix.GetLength(1) - 1; rowIndex++)
                 {
-                    columnElements[i] = matrix[i, j];
-                }
-                int count = 1;
-                for (int i = 0; i < columnElements.Length - 1; i++)
-                {
-                    if (columnElements[i] == columnElements[i + 1])
-                    {
-                        count++;
-                    }
-                    else
-                    {
-                        count = 1;
-                    }
+                    int count = CountDuplicatesInColumn(columnIndex, rowIndex);
                     if (count > maxCount)
                     {
+                        maxCountColumn = columnIndex;
                         maxCount = count;
-                        maxCountColumn = j;
                     }
                 }
             }
-            label1.Text = "Номер стовпця з найбільшою кількістю однакових елементів: " + maxCountColumn;
+            return maxCountColumn;
         }
+        private int CountDuplicatesInColumn(int columnsIndex, int rowIndex)
+        {
+            int count = 1;
+            for (int k = rowIndex; k < matrix.GetLength(1) - 1; k++)
+            {
+                if (matrix[rowIndex, columnsIndex] == matrix[k, columnsIndex])
+                {
+                    count++;
+                }
+            }
+            return count;
 
+        }
     }
 }

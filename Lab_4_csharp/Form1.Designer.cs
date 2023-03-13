@@ -32,7 +32,7 @@ namespace Lab_4_csharp
             this.Matrix = new System.Windows.Forms.Label();
             this.calculateButton = new System.Windows.Forms.Button();
             this.Number_of_lines_with_zeros = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ColumnWithMostDuplicates = new System.Windows.Forms.Label();
             this.columnCountTextBox = new System.Windows.Forms.TextBox();
             this.rowCountTextBox = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -67,14 +67,14 @@ namespace Lab_4_csharp
             this.Number_of_lines_with_zeros.TabIndex = 3;
             this.Number_of_lines_with_zeros.Text = "Кількість рядків з нулями";
             // 
-            // label1
+            // ColumnWithMostDuplicates
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 187);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(317, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Номер стовпця з найбільшою кількістю однакових елементів";
+            this.ColumnWithMostDuplicates.AutoSize = true;
+            this.ColumnWithMostDuplicates.Location = new System.Drawing.Point(12, 187);
+            this.ColumnWithMostDuplicates.Name = "ColumnWithMostDuplicates";
+            this.ColumnWithMostDuplicates.Size = new System.Drawing.Size(317, 13);
+            this.ColumnWithMostDuplicates.TabIndex = 5;
+            this.ColumnWithMostDuplicates.Text = "Номер стовпця з найбільшою кількістю однакових елементів";
             // 
             // columnCountTextBox
             // 
@@ -106,7 +106,7 @@ namespace Lab_4_csharp
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.rowCountTextBox);
             this.Controls.Add(this.columnCountTextBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ColumnWithMostDuplicates);
             this.Controls.Add(this.Number_of_lines_with_zeros);
             this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.Matrix);
@@ -123,7 +123,7 @@ namespace Lab_4_csharp
         private System.Windows.Forms.Label Matrix;
         private System.Windows.Forms.Button calculateButton;
         private System.Windows.Forms.Label Number_of_lines_with_zeros;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ColumnWithMostDuplicates;
         private System.Windows.Forms.TextBox columnCountTextBox;
         private System.Windows.Forms.TextBox rowCountTextBox;
         private System.Windows.Forms.DataGridView dataGridView1;
